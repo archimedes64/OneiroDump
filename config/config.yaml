@@ -1,5 +1,4 @@
 dream_reports: true
 fitbit: true
-general_questions: general_questions.yaml
-dream_questions: dream_questions.yaml
+general_questions: config/general_questions.yaml
 store_in_db: true
