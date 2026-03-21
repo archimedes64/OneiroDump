@@ -5,14 +5,88 @@ namespace OneiroDump
 {
   public class QuestionAsker
   {
+
+    public Answer AskQuestion(Question question)
+    {
+      var answer = new Answer();
+      switch(question.Type)
+      {
+        case "yes_no":
+          answer.Value = AskYesNo(question.Text);
+          if (question.SubQuestions == null)
+          {
+            break;
+          }
+
+          if (question.SubQuestions.Yes != null && (bool)answer.Value == true)
+          {
+            answer.SubAnswers = new Dictionary<string, Answer>();
+            foreach (Question subQuestion in question.SubQuestions.Yes)
+            {
+              answer.SubAnswers[subQuestion.Id] = AskQuestion(subQuestion);
+            }
+          }
+          else if (question.SubQuestions.No != null && (bool)answer.Value == false)
+          {
+            answer.SubAnswers = new Dictionary<string, Answer>();
+            foreach (Question subQuestion in question.SubQuestions.No)
+            {
+              answer.SubAnswers[subQuestion.Id] = AskQuestion(subQuestion);
+            }
+
+          }
+          break;
+        case "int":
+          answer.Value = AskInt(question.Text, question.Min, question.Max);
+          if (question.AskForCount == null)
+          {
+            break;
+          }
+
+
+          answer.SubAnswers = new Dictionary<string, Answer>();
+          for (int i = 0; i < (int)answer.Value; i++)
+          {
+            var subAnswer = new Answer();
+            subAnswer.SubAnswers = new Dictionary<string, Answer>();
+            answer.SubAnswers[$"{i + 1}"] = subAnswer;
+
+            foreach (Question subQuestion in question.AskForCount)
+            {
+              answer.SubAnswers[$"{i + 1}"].SubAnswers[question.Id] = AskQuestion(subQuestion);
+            }
+
+          }
+          break;
+
+        case "float":
+          answer.Value = AskFloat(question.Text, question.Min, question.Max);
+          break;
+
+        case "time":
+          answer.Value = AskTime(question.Text);
+          break;
+        case "string":
+          answer.Value = AskString(question.Text);
+          break;
+        case "enum":
+          answer.Value = AskEnum(question.Text, question.Answers);
+          break;
+      }
+
+      Console.WriteLine("");
+      return answer;
+    }
+
     private string invalid_data_message = "Invalid input.";
+
     private string GetInput(string message, string indicator)
     {
       Console.WriteLine(message);
       Console.Write(indicator);
       var input = Console.ReadLine();
 
-      if (input == null)
+      if (input == null) // I honestly dont know how to make readline return null, but I was getting a warning when compiling
       {
         input = "";
       }
@@ -20,11 +94,11 @@ namespace OneiroDump
       return input;
     }
 
-    public bool AskYesNo(string questionText)
+    private bool AskYesNo(string questionText)
     {
       // return true for yes, false for no
       string indicator = "(Y/N): ";
-      HashSet<string> validYes = new HashSet<string> {"yes","y"};
+      HashSet<string> validYes = new HashSet<string> {"yes","y"}; // using a set may be overkill for only 2 values
       HashSet<string> validNo = new HashSet<string> {"no","n"};
 
       string input = GetInput(questionText, indicator);
@@ -44,7 +118,7 @@ namespace OneiroDump
 
       }
     }
-    public int AskInt(string questionText, double? min = null, double? max = null)
+    private int AskInt(string questionText, double? min = null, double? max = null)
     {
       string range_indicator = "";
       string range_in_text = "";
@@ -82,7 +156,7 @@ namespace OneiroDump
         }
       }
     }
-    public double AskFloat(string questionText, double? min = null, double? max = null)
+    private double AskFloat(string questionText, double? min = null, double? max = null)
     {
       string indicator = "";
       string range_in_text = "";
@@ -119,7 +193,7 @@ namespace OneiroDump
         }
       }
     }
-    public string AskTime(string questionText)
+    private string AskTime(string questionText)
     {
       string indicator = "(HH:MM. Use military/24 hour time): ";
       string input = GetInput(questionText, indicator);
@@ -175,11 +249,11 @@ namespace OneiroDump
         return input;
       }
     }
-    public string AskString(string questionText)
+    private string AskString(string questionText)
     {
       return GetInput(questionText, ": ");
     }
-    public string AskEnum(string questionText, string[] options)
+    private string AskEnum(string questionText, string[] options)
     {
       Console.WriteLine(questionText);
       string indicator = $"(1 - {options.Length}): ";

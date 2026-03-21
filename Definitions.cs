@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 namespace OneiroDump
 {
   public class Question
@@ -27,6 +28,22 @@ namespace OneiroDump
     public bool Fitbit {get; set;} = false;
     public required string GeneralQuestions {get; set;}
     public bool StoreInDb {get; set;} = false;
+  }
+  public class Answer
+  {
+    public object Value {get; set;} // the answer can be a lot of different types https://stackoverflow.com/questions/5886875/let-method-take-any-data-type-in-c-sharp
+    public Dictionary<string, Answer>? SubAnswers {get; set;}
+    override public string ToString()
+    {
+      if (SubAnswers != null)
+      {
+        return $"Value: {Value}, SubAnswers: {string.Join(", ", SubAnswers)}";
+      }
+      else
+      {
+        return $"Value: {Value}";
+      }
+    }
   }
 }
 
