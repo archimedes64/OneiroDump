@@ -55,20 +55,19 @@ namespace OneiroDump
         bool has_ask_for_count = question.AskForCount != null;
         bool has_sub_questions = question.SubQuestions != null;
         HashSet<string> valid_types = new HashSet<string> {"time", "yes_no", "int", "float", "string", "enum"};
-
+        #pragma warning disable CS8602
         if (
             !(valid_types.Contains(question.Type))
-            || (has_answers && (question.Type != "enum"))
+            || (has_answers && (question.Type != "enum" || question.Answers.Length < 2))
             || ((has_min || has_max) && !(question.Type == "int" || question.Type == "float"))
-            || (has_ask_for_count && question.Type != "int")
-            || (has_sub_questions && question.Type != "yes_no")
+            || (has_ask_for_count && (question.Type != "int" || question.AskForCount.Length == 0))
+            || (has_sub_questions && (question.Type != "yes_no"))
         )
         {
           return false;
         }
         if (question.Type == "yes_no" && has_sub_questions)
         {
-
           if (question.SubQuestions.Yes != null) 
           {
             foreach (Question subQuestion in question.SubQuestions.Yes)
@@ -105,4 +104,4 @@ namespace OneiroDump
         return true;
       }
   }
-}
+} 

@@ -10,7 +10,14 @@ namespace OneiroDump
     {
       Console.WriteLine(message);
       Console.Write(indicator);
-      return Console.ReadLine();
+      var input = Console.ReadLine();
+
+      if (input == null)
+      {
+        input = "";
+      }
+
+      return input;
     }
 
     public bool AskYesNo(string questionText)
