@@ -23,14 +23,14 @@ namespace OneiroDump
           throw;
         }
       }
-      public List<Question> LoadQuestions(string filePath)
+      public Question[] LoadQuestions(string filePath)
       {
         try
         {
 
         string file = File.ReadAllText(filePath);
         var deserializer = new DeserializerBuilder().WithNamingConvention(UnderscoredNamingConvention.Instance).Build();  // https://github.com/aaubry/YamlDotNet
-        List<Question> questions = deserializer.Deserialize<List<Question>>(file);
+        Question[] questions = deserializer.Deserialize<Question[]>(file);
         foreach (Question question in questions)
         {
           if (!ValidateQuestion(question))
@@ -54,7 +54,7 @@ namespace OneiroDump
         bool has_max = question.Max != null;
         bool has_ask_for_count = question.AskForCount != null;
         bool has_sub_questions = question.SubQuestions != null;
-        List<string> valid_types = new List<string> {"time", "yes_no", "int", "float", "string", "enum"};
+        HashSet<string> valid_types = new HashSet<string> {"time", "yes_no", "int", "float", "string", "enum"};
 
         if (
             !(valid_types.Contains(question.Type))

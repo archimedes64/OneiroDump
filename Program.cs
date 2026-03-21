@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System;
 
 namespace OneiroDump
 {
@@ -9,7 +10,8 @@ namespace OneiroDump
 
       ConfigLoader configLoader = new ConfigLoader();
       Config config = configLoader.LoadConfig("config/config.yaml");
-      List<Question> questions = configLoader.LoadQuestions(config.GeneralQuestions);
+      Question[] questions = configLoader.LoadQuestions(config.GeneralQuestions);
+      QuestionAsker questionAsker = new QuestionAsker();
 
     }
   }
