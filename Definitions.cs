@@ -37,7 +37,12 @@ namespace OneiroDump
     {
       if (SubAnswers != null)
       {
-        return $"Value: {Value}, SubAnswers: {string.Join(", ", SubAnswers)}";
+        List<string> subAnswers = new List<string>();
+        foreach (var subAnswer in SubAnswers)
+        {
+          subAnswers.Add(subAnswer.Key + ": " + subAnswer.Value);
+        }
+        return $"Value: {Value}, SubAnswers: [{string.Join(", ", subAnswers)}]";
       }
       else
       {

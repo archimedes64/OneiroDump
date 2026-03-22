@@ -53,7 +53,7 @@ namespace OneiroDump
 
             foreach (Question subQuestion in question.AskForCount)
             {
-              answer.SubAnswers[$"{i + 1}"].SubAnswers[question.Id] = AskQuestion(subQuestion);
+              answer.SubAnswers[$"{i + 1}"].SubAnswers[subQuestion.Id] = AskQuestion(subQuestion);
             }
 
           }
@@ -74,7 +74,6 @@ namespace OneiroDump
           break;
       }
 
-      Console.WriteLine("");
       return answer;
     }
 
