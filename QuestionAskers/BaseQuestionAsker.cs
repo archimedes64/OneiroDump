@@ -5,10 +5,13 @@ namespace OneiroDump
   public abstract class BaseQuestionAsker
   {
     // https://www.c-sharpcorner.com/UploadFile/3d39b4/abstract-class-in-C-Sharp/
+    protected QuestionAsker questionAsker;
 
     protected abstract (bool isValid, string error) IsValidAnswer(string answer, Question question);
-
+    
     protected abstract string MakeIndicator(Question question); // a hint to the user on how they should input. ex: "(Y/N)" and "(0-10)"
+
+    public abstract string QuestionType { get; }
 
     protected virtual Answer ConvertStringToAnswer(string userInput)
     {
@@ -51,5 +54,11 @@ namespace OneiroDump
       return ConvertStringToAnswer(userInput);
 
     }
+
+    public BaseQuestionAsker(QuestionAsker questionAsker)
+    {
+      this.questionAsker = questionAsker;
+    }
+
   }
 }

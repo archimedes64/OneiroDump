@@ -3,6 +3,7 @@ namespace OneiroDump
 {
   public class EnumQuestionAsker : BaseQuestionAsker
   {
+    public override string QuestionType { get { return "enum"; } }
 
     private string[] options;
 
@@ -46,5 +47,6 @@ namespace OneiroDump
 
       return (false, $"Your answer must be a number between 1 and {options.Length}");
     }
+    public EnumQuestionAsker(QuestionAsker questionAsker) : base(questionAsker) {}
   }
 }

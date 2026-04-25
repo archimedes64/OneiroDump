@@ -5,16 +5,8 @@ namespace OneiroDump
 {
   public class QuestionAsker
   {
-    private static Dictionary<string, BaseQuestionAsker> questionAskers = new Dictionary<string, BaseQuestionAsker>
-    {
-      {"yes_no", new YesNoQuestionAsker()},
-      {"float", new FloatQuestionAsker()},
-      {"int", new IntQuestionAsker()},
-      {"string", new StringQuestionAsker()},
-      {"time", new TimeQuestionAsker()},
-      {"enum", new EnumQuestionAsker()}
-    };
-    public static Answer AskQuestion(Question question)
+    private Dictionary<string, BaseQuestionAsker> questionAskers = new Dictionary<string, BaseQuestionAsker> {};
+    public Answer AskQuestion(Question question)
     {
       if (!questionAskers.ContainsKey(question.Type))
       {
@@ -23,5 +15,23 @@ namespace OneiroDump
 
       return questionAskers[question.Type].AskQuestion(question);
     }
+    public void AddQuestionAsker(BaseQuestionAsker questionAsker)
+    {
+      string questionType = questionAsker.QuestionType;
+      if (questionAskers.ContainsKey(questionType))
+      {
+        throw new ArgumentException($"Question asker for type {questionType} already exists.");
+      }
+
+      questionAskers[questionType] = questionAsker;
+    }
+    public void AddQuestionAskers(BaseQuestionAsker[] questionAskers)
+    {
+      foreach (BaseQuestionAsker questionAsker in questionAskers)
+      {
+        AddQuestionAsker(questionAsker);
+      }
+    }
+
   }
 }

@@ -4,6 +4,8 @@ namespace OneiroDump
 {
   public class TimeQuestionAsker : BaseQuestionAsker
   {
+    public override string QuestionType { get { return "time";} }
+
     protected override string MakeIndicator(Question question)
     {
       return "(HH:MM. Use military/24 hour time): ";
@@ -51,5 +53,6 @@ namespace OneiroDump
 
       return (true, "");
     }
+    public TimeQuestionAsker(QuestionAsker questionAsker) : base(questionAsker) {}
   }
 }

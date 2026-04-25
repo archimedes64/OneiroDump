@@ -5,6 +5,8 @@ namespace OneiroDump
 {
   public class YesNoQuestionAsker : BaseQuestionAsker
   {
+    public override string QuestionType { get {return "yes_no";} }
+
     private HashSet<string> validYes = new HashSet<string> {"yes","y"};
     private HashSet<string> validNo = new HashSet<string> {"no","n"};
 
@@ -51,7 +53,7 @@ namespace OneiroDump
         answer.SubAnswers = new Dictionary<string, Answer>();
         foreach (Question subQuestion in question.SubQuestions.Yes)
         {
-          answer.SubAnswers[subQuestion.Id] = QuestionAsker.AskQuestion(subQuestion);
+          answer.SubAnswers[subQuestion.Id] = questionAsker.AskQuestion(subQuestion);
         }
       }
       else if (question.SubQuestions.No != null && (bool)answer.Value == false)
@@ -59,12 +61,13 @@ namespace OneiroDump
         answer.SubAnswers = new Dictionary<string, Answer>();
         foreach (Question subQuestion in question.SubQuestions.No)
         {
-          answer.SubAnswers[subQuestion.Id] = QuestionAsker.AskQuestion(subQuestion);
+          answer.SubAnswers[subQuestion.Id] = questionAsker.AskQuestion(subQuestion);
         }
 
       }
 
       return answer;
     }
+    public YesNoQuestionAsker(QuestionAsker questionAsker) : base(questionAsker) {}
   }
 }

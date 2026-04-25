@@ -3,6 +3,7 @@ namespace OneiroDump
 {
   public class FloatQuestionAsker : BaseQuestionAsker
   {
+    public override string QuestionType { get { return "float"; } }
 
     private string GetRangeInText(Question question)
     {
@@ -64,5 +65,7 @@ namespace OneiroDump
     {
       return new Answer { Value = double.Parse(userInput) };
     }
+
+    public FloatQuestionAsker(QuestionAsker questionAsker) : base(questionAsker){}
   }
 }

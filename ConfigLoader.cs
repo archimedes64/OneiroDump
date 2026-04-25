@@ -35,7 +35,7 @@ namespace OneiroDump
         {
           if (!ValidateQuestion(question))
           {
-            throw new Exception($"Invalid question format: {question.Id}"); // theres not a way to get more helpful error messages without making this file massive and complicating the logic in ValidateQuestion
+            throw new Exception($"Invalid question format: {question.Id}");
           }
         }
         return questions;
@@ -66,6 +66,7 @@ namespace OneiroDump
         {
           return false;
         }
+
         if (question.Type == "yes_no" && has_sub_questions)
         {
           if (question.SubQuestions.Yes != null) 
@@ -91,6 +92,7 @@ namespace OneiroDump
           }
 
         }
+
         if (has_ask_for_count)
         {
           foreach (Question subQuestion in question.AskForCount)

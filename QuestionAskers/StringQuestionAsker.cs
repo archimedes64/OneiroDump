@@ -4,6 +4,8 @@ namespace OneiroDump
 {
   public class StringQuestionAsker : BaseQuestionAsker
   {
+    public override string QuestionType { get { return "string"; } }
+
     protected override string MakeIndicator(Question question)
     {
       return ": ";
@@ -12,6 +14,7 @@ namespace OneiroDump
     {
       return (true, ""); // whether its a string is already validated by GetInput
     }
+    public StringQuestionAsker(QuestionAsker questionAsker) : base(questionAsker) {}
   }
 }
 

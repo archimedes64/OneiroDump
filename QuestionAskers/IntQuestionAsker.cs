@@ -3,6 +3,8 @@ namespace OneiroDump
 {
   public class IntQuestionAsker : BaseQuestionAsker
   {
+    public override string QuestionType { get { return "int"; } }
+
     private string GetRangeInText(Question question)
     {
       var min = question.Min;
@@ -82,12 +84,13 @@ namespace OneiroDump
 
         foreach (Question subQuestion in question.AskForCount)
         {
-          answer.SubAnswers[$"{i + 1}"].SubAnswers[subQuestion.Id] = QuestionAsker.AskQuestion(subQuestion);
+          answer.SubAnswers[$"{i + 1}"].SubAnswers[subQuestion.Id] = questionAsker.AskQuestion(subQuestion);
         }
 
       }
       return answer;
     }
+    public IntQuestionAsker(QuestionAsker questionAsker) : base(questionAsker) {}
   }
 }
 
