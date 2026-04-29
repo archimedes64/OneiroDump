@@ -6,15 +6,17 @@ namespace OneiroDump
   public class QuestionAsker
   {
     private Dictionary<string, BaseQuestionAsker> questionAskers = new Dictionary<string, BaseQuestionAsker> {};
+
     public Answer AskQuestion(Question question)
     {
       if (!questionAskers.ContainsKey(question.Type))
       {
-        throw new ArgumentException($"Invalid question type: {question.Type}");
+        throw new ArgumentException($"Question asker for type {question.Type} already exists.");
       }
 
       return questionAskers[question.Type].AskQuestion(question);
     }
+
     public void AddQuestionAsker(BaseQuestionAsker questionAsker)
     {
       string questionType = questionAsker.QuestionType;
@@ -25,6 +27,7 @@ namespace OneiroDump
 
       questionAskers[questionType] = questionAsker;
     }
+
     public void AddQuestionAskers(BaseQuestionAsker[] questionAskers)
     {
       foreach (BaseQuestionAsker questionAsker in questionAskers)

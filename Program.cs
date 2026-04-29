@@ -18,7 +18,7 @@ namespace OneiroDump
 
       // setup
       ConfigLoader configLoader = new ConfigLoader();
-      Config config = configLoader.LoadConfig(args[0]); // TODO: don't hard code this
+      Config config = configLoader.LoadConfig(args[0]);
       Question[] questions = configLoader.LoadQuestions(config.Questions);
 
       QuestionAsker questionAsker = new QuestionAsker();

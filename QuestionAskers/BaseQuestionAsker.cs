@@ -11,7 +11,7 @@ namespace OneiroDump
     
     protected abstract string MakeIndicator(Question question); // a hint to the user on how they should input. ex: "(Y/N)" and "(0-10)"
 
-    public abstract string QuestionType { get; }
+    public abstract string QuestionType { get; } // corresponds to one in the config. "yes_no", "int", "float", "string", "enum", "time".
 
     protected virtual Answer ConvertStringToAnswer(string userInput)
     {

@@ -25,8 +25,8 @@ namespace OneiroDump
       }
       
       return "";
-
     }
+
     protected override string MakeIndicator(Question question)
     {
       string rangeInText = GetRangeInText(question);
@@ -35,6 +35,7 @@ namespace OneiroDump
       {
         return $"({rangeInText}): ";
       }
+
       return "(Number): ";
     }
 
