@@ -1,11 +1,25 @@
 # OneiroDump
 
-A C# cli tool that makes the process of documenting data related to sleep and dreams easier.
+A C# cli tool that makes the process of documenting data related to sleep and dreams easier. 
 
-# In Progress
+# Features
+- Asks questions from a configurable questionnaire (yaml)
+- Saves answers to the path provided
+- Six Question Types:
+    - YesNo: Answer must be Yes or No. Can ask sub questions depending on the answer
+    - Int: Answer must be an whole number. Can be defined to have a set range of valid numbers
+    - Float: Answer must be a number. Like ints, can be defined to have a set range of valid numberse
+    - String: Answer is a string
+    - Time: Answer is a string that represents the time using the 24 hour clock (ex: "13:00")
+    - Enum: Answer must be one of the defined possible answers
 
-You stumbled upon this project at the beginning of its development, so it is currently not in a usable state.
-This is for personal use, but it will be configurable using yaml if you want to adapt for your own use. I am using this program for a final project, so I can not accept any commits or pull requests until April 27th. The project should be usable by then.
+# TODO:
+
+This project is being actively developed, meaning there are a few plans for the future.
+
+- Saving to a sql database
+- Fitbit integration (optional, of course)
+- Improved formatting for the outputted files
 
 # Dependencies
 
