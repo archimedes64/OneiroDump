@@ -19,49 +19,6 @@ question
       - question2
   answers: required for all enums. list of strings that are valid answers.
   ask_for_count: for ints. list of questions to ask. will ask each questions n amount of times. n is the answer given by the user. the id for each one is the current iteration + 1.
-
-what final data would look like:
-supplements:
-  answer: true
-  sub_questions:
-    melatonin:
-      answer: true
-      sub_questions:
-        mg:
-          answer: 5
-        mins: 
-          answer: 30
-    B6:
-      answer: false # sub_questions is possible if the answer is false, but since this one didnt have a "no" in sub_questions there were no questions to ask
-bed_time:
-  answer: "22:00" # the time is represented as a string
-wake_time: 
-  answer: "06:30"
-meditate:
-  answer: true 
-  sub_questions:
-    mins:
-      answer: 30
-wbtb:
-  answer: true
-  sub_questions
-    amount:
-      answer: 2
-      sub_questions:
-        1: # id here is nessicary for flattening later
-          wbtb_time:   
-            answer: "02:30"
-          wbtb_length: 
-            answer: 20
-          wbtb_tech:   
-            answer: "MILD"
-        2:
-          wbtb_time:
-            answer: "04:30"
-          wbtb_length: 
-              answer: 15
-          wbtb_tech:
-              answer: "WILD"
 Special Ids:
   special ids are question ids that cause the program to handle this question (and its answer) differently.
   dreams:
