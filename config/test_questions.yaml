@@ -1,29 +1,39 @@
-- id: "yes_no"
-  text: "Answer yes or no."
-  type: yes_no
-  sub_questions:
-    yes:
-      - id: "string"
-        text: "This question is only asked if you answer yes. Please enter a string."
-        type: string
-- id: "int"
-  text: "Enter a whole number."
+- id: "dreams"
+  text: "How many dreams did you have?"
   type: int
-  min: 0
-  max: 5
-
-- id: "float"
-  text: "Enter any number."
-  type: float
-
-- id: "time"
-  text: "Enter any time."
-  type: time
-
-- id: "enum"
-  text: "Choose one of these options."
-  type: enum
-  answers:
-    - "Option 1"
-    - "Option 2"
-    - "Option 3"
+  ask_for_count:
+    - id: "dream_title"
+      text: "What is the title of this dream?"
+      type: string
+    - id: "dream_log"
+      text: "Paste the full dream log here."
+      type: string
+# - id: "yes_no"
+#   text: "Answer yes or no."
+#   type: yes_no
+#   sub_questions:
+#     yes:
+#       - id: "string"
+#         text: "This question is only asked if you answer yes. Please enter a string."
+#         type: string
+# - id: "int"
+#   text: "Enter a whole number."
+#   type: int
+#   min: 0
+#   max: 5
+#
+# - id: "float"
+#   text: "Enter any number."
+#   type: float
+#
+# - id: "time"
+#   text: "Enter any time."
+#   type: time
+#
+# - id: "enum"
+#   text: "Choose one of these options."
+#   type: enum
+#   answers:
+#     - "Option 1"
+#     - "Option 2"
+#     - "Option 3"

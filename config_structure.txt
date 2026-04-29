@@ -62,10 +62,13 @@ wbtb:
               answer: 15
           wbtb_tech:
               answer: "WILD"
-          
-for sql the data would be flattened using paths. "wbtb.1.wbtb_time" would be dict[wbtb][1][wbtb_time][answer]
-
-
-
-
-
+Special Ids:
+  special ids are question ids that cause the program to handle this question (and its answer) differently.
+  dreams:
+    - this question must be an int with ask_for_count.
+    - the initial answer indicates how many dreams the user had
+    - the sub_questions are the questions asked for each dream
+  dream_title:
+    - is only special when used as a dreams sub_question
+    - answer is the title of the dream, will be used for the name of the file that contains the dream specific information.
+    - must be a string.

@@ -1,0 +1,161 @@
+- id: "supplements"
+  text: "Did you take supplements before bed?"
+  type: "yes_no"
+  sub_questions:
+    yes:
+      - id: "melatonin"
+        text: "Did you take melatonin?"
+        type: "yes_no"
+        sub_questions: &supplement
+          yes:
+            - id: "dosage_mg"
+              text: "How many milligrams?"
+              type: "float"
+              min: 0.01
+            - id: "mins_before_bed"
+              text: "How many minutes before bed?"
+              type: "int"
+              min: 0
+
+      - id: "B6"
+        text: "Did you take Vitamin B6 (Pyridoxine)?"
+        type: "yes_no"
+        sub_questions: *supplement
+
+      - id: "magnesium"
+        text: "Did you take magnesium?"
+        type: "yes_no"
+        sub_questions: *supplement
+
+      - id: "calcium"
+        text: "Did you take calcium?"
+        type: "yes_no"
+        sub_questions: *supplement
+
+- id: "bed_time"
+  text: "What time did you go to bed?"
+  type: "time"
+
+- id: "wake_time"
+  text: "What time did you wake up?"
+  type: "time"
+
+# adapted from (Aspy et al., 2017) with slight changes in wording to fit how the user will input it.
+- id: "sleep_quality"
+  text: "What was the overall quality of your sleep last night?"
+  type: enum
+  answers: ["Terrible", "Poor", "Okay", "Good", "Excellent"]
+- id: "tiredness"
+  text: "How tired did/do you feel this morning?"
+  type: enum
+  answers: ["Not at all tired", "Slightly", "Somewhat", "Quite", "Very"]
+- id: "sleep_dep"
+  text: "How sleep deprived were you yesterday?"
+  type: enum
+  answers: ["Not at all tired", "Slightly", "Somewhat", "Quite", "Very"]
+# end adaptation
+
+- id: "meditate"
+  text: "Did you meditate yesterday?"
+  type: "yes_no"
+  sub_questions:
+    yes:
+      - id: "mins"
+        text: "How many minutes?"
+        type: "int"
+        min: 1
+
+- id: "sounds"
+  text: "What sounds were playing when you woke up?"
+  type: "enum"
+  answers: ["None", "White Noise", "Rain", "Music", "Rain & Music"]
+
+- id: "lucid"
+  text: "Did you try to have a lucid dream?"
+  type: "yes_no"
+  sub_questions:
+    yes:
+      - id: "wbtb"
+        text: "Did you do any WBTBs?"
+        type: "yes_no"
+        sub_questions:
+          yes:
+            - id: "amount"
+              text: "How many?"
+              type: "int"
+              min: 1
+              ask_for_count:
+                - id: "wbtb_time"
+                  text: "What time was this WBTB"
+                  type: "time"
+                - id: "wbtb_length"
+                  text: "How long was this WBTB in minutes?"
+                  type: "int"
+                  min: 0
+                - id: "wbtb_tech"
+                  text: "What tech did you do during this WBTB?"
+                  type: "enum"
+                  answers: ["None", "MILD", "WILD", "SSILD", "VILD"]
+      - id: "day_tech"
+        text: "What technique did you do throughout the day?"
+        type: "enum"
+        answers: ["None", "SAT", "ADA"]
+
+      - id: "intention"
+        text: "Did you use writing to set your intention to lucid dream?"
+        type: "yes_no"
+
+- id: "dreams"
+  text: "How many dreams did you remember?"
+  type: "int"
+  ask_for_count:
+    - id: "dream_title"
+      text: "What is the title of your dream?"
+      type: "string"
+
+    - id: "dream_log"
+      text: "Paste your dream here."
+      type: "string"
+
+    - id: "category"
+      text: "How would you classify this dream?"
+      type: "enum"
+      answers:
+        ["Nightmare", "Fragment", "Anxiety Dream", "Wish Fufillment", "Normal"]
+
+    - id: "recall"
+      text: | # adapted from (Denholm J. Aspy, 2016)
+        Rate the amount of content you can recall from this dream:
+
+        Fragmentary: You recall some content (such as a single scene or an isolated image), but not enough to provide any 'flow' in the narrative.
+                     There are no transitions from one scene or event to the next.
+
+        Partial:     You recall enough content for there to be some 'flow' in the narrative from one scene or event to the next.
+                     However, you’re pretty sure that most of the dream has been forgotten.
+
+        Majority:    You recall a substantial amount and you’re pretty sure you can recall at least half of the dream.
+                     However, there are frustrating gaps indicating that a significant amount is still missing.
+
+        Whole:       Fairly complete recall of the dream without any frustrating gaps in your memory of what happened
+                     (although the beginning of the dream and some details might still be missing).
+      type: enum
+      answers: ["Fragmentary", "Partial", "Majority", "Whole"]
+
+    - id: "lucid_dream"
+      text: "Was this dream lucid"
+      type: "yes_no"
+      sub_questions:
+        yes:
+          # TODO: make a scale for lucidity
+          - id: "control"
+            text: "How much control over the dream did you have?"
+            type: "enum"
+            answers: ["None", "Poor", "Okay", "Good", "Complete"]
+          - id: "persistent_realm"
+            text: "Was this dream in a persistent realm?"
+            type: "yes_no"
+            sub_questions:
+              yes:
+                - id: "name"
+                  text: "What is the name of this PR?"
+                  type: "string"
