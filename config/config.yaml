@@ -1,2 +1,2 @@
-questions: config/general_questions.yaml
+questions: config/questions.yaml
 save_location: /home/archimedes/data/documents/dreams/

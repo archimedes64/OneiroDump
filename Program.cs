@@ -10,9 +10,15 @@ namespace OneiroDump
   {
     public static void Main(string[] args)
     {
+      if (args.Length == 0)
+      {
+        Console.WriteLine("Please provide a config file path.");
+        return;
+      }
+
       // setup
       ConfigLoader configLoader = new ConfigLoader();
-      Config config = configLoader.LoadConfig("config/config.yaml"); // TODO: don't hard code this
+      Config config = configLoader.LoadConfig(args[0]); // TODO: don't hard code this
       Question[] questions = configLoader.LoadQuestions(config.Questions);
 
       QuestionAsker questionAsker = new QuestionAsker();
@@ -83,6 +89,7 @@ namespace OneiroDump
           Console.WriteLine($"    {dreamAnswers.Key}: {dreamAnswers.Value}");
         }
       }
+
       bool do_save = (bool)questionAsker.AskQuestion(new Question{Id = "comfirm", Type = "yes_no", Text = "Do you want to save these answers?"}).Value;
 
       if (!do_save)
